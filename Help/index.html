@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hướng dẫn sử dụng</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#fff; --border:#d8dce3; --text:#1c2128; --muted:#6b7280; --accent:#2563eb;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#14171c; --panel:#1b1f26; --border:#30363d; --text:#e6e9ee; --muted:#9aa4b2; --accent:#5b9bff;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font:14px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);
+    display:flex;flex-direction:column}
+  header{padding:14px 18px;border-bottom:1px solid var(--border);background:var(--panel)}
+  h1{font-size:17px;margin:0;font-weight:700}
+  header p{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+  main{flex:1;overflow:auto;padding:20px 18px;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:880px;display:flex;flex-direction:column;gap:28px}
+
+  .groupSection h2{font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);
+    margin:0 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+
+  .toolCard{padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:var(--panel);
+    margin-bottom:10px}
+  .toolCard .titleRow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .toolCard .titleRow b{font-size:14.5px}
+  .toolCard .titleRow .dep{margin-left:auto;font-size:11px;color:var(--muted);
+    padding:2px 8px;border-radius:10px;background:rgba(127,127,127,.12)}
+  .toolCard p{margin:0 0 6px;color:var(--text)}
+  .toolCard .howto{color:var(--muted);font-size:13px}
+  .toolCard .howto b{color:var(--text);font-weight:600}
+
+  .tocBox{padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:var(--panel)}
+  .tocBox h2{font-size:13px;margin:0 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .tocGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+  .tocGrid a{color:var(--accent);text-decoration:none;font-size:13px}
+  .tocGrid a:hover{text-decoration:underline}
+
+  .noteBox{padding:12px 16px;border-left:3px solid var(--accent);background:rgba(37,99,235,.06);
+    border-radius:0 8px 8px 0;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ℹ️ Hướng dẫn sử dụng</h1>
+  <p>Tổng hợp toàn bộ công cụ trong hệ thống — mỗi tool chạy hoàn toàn trên trình duyệt, không cần cài đặt, không gửi dữ liệu lên server.</p>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <div class="noteBox">
+      💡 Tất cả tool đều <b>tự lưu không cần đăng nhập</b>. Dữ liệu bạn nhập (text, ảnh, file) chỉ xử lý ngay trên máy bạn — không upload đi đâu, trừ khi tool có ghi rõ ngược lại (ví dụ Excel → Table khi tải từ Google Sheet sẽ gọi tới Google để lấy dữ liệu công khai của sheet đó).
+    </div>
+
+    <div class="tocBox">
+      <h2>Mục lục nhanh</h2>
+      <div class="tocGrid">
+        <a href="#convert">🔄 Convert (7)</a>
+        <a href="#utils">🛠️ Tiện ích (13)</a>
+        <a href="#games">🎮 Games (3)</a>
+      </div>
+    </div>
+
+    <!-- ===================== CONVERT ===================== -->
+    <div class="groupSection" id="convert">
+      <h2>🔄 Convert</h2>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>Compare Text</b></div>
+        <p>So sánh 2 đoạn văn bản, hiển thị điểm khác nhau (diff) theo dòng và theo từ.</p>
+        <div class="howto">Dán bản gốc và bản sửa vào 2 ô, kết quả hiện ngay bên dưới với màu đỏ/xanh đánh dấu phần bị xóa/thêm.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>JSON Convert</b></div>
+        <p>Chuyển JSON string qua lại giữa 3 dạng: Pretty (định dạng đẹp có tô màu), Minify (nén 1 dòng), Table (bảng, hỗ trợ xem chi tiết object/array lồng nhau).</p>
+        <div class="howto">Dán JSON vào ô input, chọn tab tương ứng. Ở chế độ Table, bấm vào ô chứa object/array để xổ thêm bảng con.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>Excel → Table</b><span class="dep">SheetJS</span></div>
+        <p>Đọc file Excel/CSV hoặc link Google Sheet công khai, hiển thị dạng bảng có thể lọc theo cột, kéo-thả đổi thứ tự cột, và tạo Pivot Table (kéo-thả field vào vùng Hàng/Cột/Giá trị, click vào ô kết quả để xem dữ liệu gốc).</p>
+        <div class="howto">Kéo-thả file vào hoặc dán link Google Sheet (cần share "Anyone with link can view"). Bấm nút <b>📐 Pivot</b> để mở bảng tổng hợp.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>Image → Text</b><span class="dep">Tesseract.js</span></div>
+        <p>OCR (nhận diện chữ trong ảnh) sang text, hỗ trợ Tiếng Việt và Tiếng Anh.</p>
+        <div class="howto">Kéo-thả ảnh, dán ảnh (Ctrl+V), hoặc chọn file. Chọn ngôn ngữ phù hợp rồi bấm "Nhận dạng text". Lần đầu chạy sẽ hơi chậm vì cần tải dữ liệu ngôn ngữ.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>Table Builder</b><span class="dep">SheetJS</span></div>
+        <p>Tạo bảng dữ liệu từ đầu, giống spreadsheet: thêm/xóa hàng-cột, mỗi cột chọn kiểu Text/Number/Date để tự kiểm tra dữ liệu nhập vào.</p>
+        <div class="howto">Bấm ô để sửa trực tiếp, hoặc copy dữ liệu từ Excel rồi Ctrl+V vào 1 ô để dán cả khối. Xuất ra Excel/CSV/JSON.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>PDF → Text/Image</b><span class="dep">pdf.js</span></div>
+        <p>Trích toàn bộ text từ file PDF, hoặc xuất từng trang PDF thành ảnh PNG để tải về.</p>
+        <div class="howto">Kéo-thả file PDF vào, chọn tab "Trích Text" hoặc "Xuất ảnh từng trang".</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>Merge/Split PDF</b><span class="dep">pdf-lib</span></div>
+        <p>Gộp nhiều file PDF thành 1 (sắp xếp lại thứ tự bằng nút ↑↓), hoặc tách trang theo phạm vi tùy chọn (ví dụ <code>1,3,5-8</code>) hoặc tách toàn bộ thành từng file riêng.</p>
+        <div class="howto">Chọn tab Gộp hoặc Tách, kéo-thả file vào, làm theo hướng dẫn trên màn hình.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>Markdown Converter</b><span class="dep">marked + turndown</span></div>
+        <p>Chuyển Markdown → HTML (xem trước trực tiếp, xuất file .doc mở được trong Word), hoặc HTML → Markdown.</p>
+        <div class="howto">Chọn tab tương ứng, gõ/dán nội dung vào ô input, kết quả hiện ngay bên phải. Bấm "Tải file Word" để xuất .doc.</div>
+      </div>
+    </div>
+
+    <!-- ===================== UTILS ===================== -->
+    <div class="groupSection" id="utils">
+      <h2>🛠️ Tiện ích</h2>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🔳 QR Code</b><span class="dep">qrcode-generator</span></div>
+        <p>Tạo mã QR từ text hoặc link, tùy chỉnh màu sắc, kích thước, mức sửa lỗi.</p>
+        <div class="howto">Nhập nội dung, tùy chỉnh rồi tải PNG hoặc copy ảnh trực tiếp vào clipboard.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🔤 Case Converter</b></div>
+        <p>Chuyển đổi 12 kiểu viết hoa/thường: UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, kebab-case, dot.case, đảo ngược ký tự...</p>
+        <div class="howto">Nhập text, bấm vào kiểu muốn chuyển, kết quả hiện bên dưới kèm nút copy.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>📋 Text ↔ CSV/TSV</b></div>
+        <p>Chuyển text có cấu trúc (phân cách bằng Tab/phẩy/chấm phẩy/ký tự tùy chọn) thành bảng xem trước, và ngược lại.</p>
+        <div class="howto">Dán text vào ô trái, chọn đúng delimiter, bảng bên phải tự cập nhật. Dùng nút "Đảo chiều" để chuẩn hóa về dạng TSV (dán thẳng vào Excel).</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🔍 Duplicate Finder</b></div>
+        <p>Tìm các dòng trùng lặp trong danh sách, tô màu phân biệt dòng trùng (đỏ) và dòng duy nhất (xanh).</p>
+        <div class="howto">Dán danh sách vào, có thể bật "Không phân biệt hoa/thường". Dùng nút "Xóa trùng (giữ 1 bản)" để dọn sạch danh sách ngay.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>📐 Unit Converter</b></div>
+        <p>Đổi đơn vị đo: độ dài, khối lượng, diện tích, thể tích, tốc độ, nhiệt độ, dung lượng dữ liệu. <i>Không có tiền tệ</i> vì tỷ giá luôn biến động, không thể đảm bảo chính xác.</p>
+        <div class="howto">Chọn nhóm đơn vị, nhập giá trị, kết quả và bảng quy đổi nhanh hiện ngay bên dưới. Nút ⇄ để đảo chiều 2 đơn vị.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>📝 Word Counter</b></div>
+        <p>Đếm số từ, ký tự, câu, đoạn văn; ước tính thời gian đọc/nói; liệt kê top 10 từ xuất hiện nhiều nhất.</p>
+        <div class="howto">Gõ hoặc dán văn bản, tất cả số liệu tự cập nhật khi bạn gõ.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>✉️ Mail Merge</b></div>
+        <p>Điền hàng loạt template chứa <code>{{TenCot}}</code> bằng dữ liệu dán từ Excel (dòng đầu là tên cột).</p>
+        <div class="howto">Viết template ở ô trái (dùng <code>{{TenCot}}</code> để đánh dấu chỗ cần điền), dán bảng dữ liệu vào ô dưới. Dùng nút ‹ › để xem trước từng bản ghi, hoặc "Xuất tất cả" để lấy toàn bộ cùng lúc.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>📅 Date Calculator</b></div>
+        <p>3 chức năng: tính khoảng cách giữa 2 ngày (có thể loại T7/CN), cộng/trừ số ngày vào 1 mốc, tính tuổi chính xác.</p>
+        <div class="howto">Chọn tab tương ứng, nhập ngày vào ô lịch, kết quả hiện ngay lập tức.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🔐 Password Generator</b></div>
+        <p>Sinh mật khẩu ngẫu nhiên an toàn (dùng crypto ngẫu nhiên thật của trình duyệt), tùy chỉnh độ dài và loại ký tự, đo độ mạnh.</p>
+        <div class="howto">Kéo thanh trượt chỉnh độ dài, tick chọn loại ký tự. Bấm 🔄 để tạo lại, 📋 để copy. Nút "Tạo hàng loạt" sinh 10 mật khẩu cùng lúc.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🔒 Hash & Encode</b></div>
+        <p>Tính hash SHA-1/SHA-256/SHA-512 (một chiều, không giải mã ngược được), Base64 encode/decode, URL encode/decode.</p>
+        <div class="howto">Nhập text vào ô input, tất cả kết quả hiện đồng thời bên dưới, mỗi ô có nút Copy riêng.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🎨 Color Picker</b></div>
+        <p>Chọn màu và xem ngay mã HEX/RGB/HSL, kèm bảng màu liên quan (đậm/nhạt cùng tông) và màu bổ sung (complementary/triadic/analogous) để phối màu.</p>
+        <div class="howto">Bấm ô màu để chọn, hoặc bấm vào 1 ô trong bảng màu gợi ý để đổi màu chính sang màu đó.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🎲 Lorem Ipsum</b></div>
+        <p>Sinh đoạn văn giả (Lorem Ipsum — văn bản placeholder kinh điển trong thiết kế) theo số lượng đoạn/câu/từ tùy chọn, và dữ liệu giả (họ tên, email, số điện thoại, địa chỉ kiểu Việt Nam) để test form/database.</p>
+        <div class="howto">Chọn tab tương ứng, chỉnh số lượng rồi bấm "Tạo". Dùng khi cần nội dung mẫu nhanh mà không muốn nghĩ nội dung thật.</div>
+      </div>
+    </div>
+
+    <!-- ===================== GAMES ===================== -->
+    <div class="groupSection" id="games">
+      <h2>🎮 Games</h2>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🪢 Tug of War</b></div>
+        <p>Game kéo co bash phím — 2 người chung bàn phím hoặc đấu với AI (3 mức độ khó).</p>
+        <div class="howto">2 người: P1 dùng <b>A/D</b>, P2 dùng <b>←/→</b>. Đấu AI: dùng <b>Space</b> hoặc bấm nút BASH trên màn hình. Bash càng nhanh, dây càng kéo về phía bạn.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>⭕❌ Caro / Gomoku</b></div>
+        <p>Cờ caro/gomoku với 3 chế độ: 2 người chung màn hình, đấu AI (bất khả chiến bại ở bàn 3×3 mức Khó), hoặc <b>Online</b> — tạo/vào phòng chờ để chơi với người khác qua mạng (kèm quick-chat emoji dựng sẵn).</p>
+        <div class="howto">Chọn kích thước bàn (3×3 hoặc 15×15 Gomoku) và chế độ chơi. Ở mode Online, đặt tên hiển thị rồi tạo phòng mới hoặc chọn 1 phòng đang chờ trong danh sách.</div>
+      </div>
+
+      <div class="toolCard">
+        <div class="titleRow"><b>🥋 Fight Game</b></div>
+        <p>Game đối kháng võ thuật đơn giản trên canvas — di chuyển, nhảy, đánh thường/mạnh, đỡ đòn.</p>
+        <div class="howto">2 người: P1 dùng <b>A/D/W/F/G/S</b>, P2 dùng <b>←/→/↑/K/L/↓</b>. Đấu AI: chỉ cần điều khiển P1, chọn độ khó trước khi bắt đầu.</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</body>
+</html>
