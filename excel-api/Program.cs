@@ -13,11 +13,10 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 builder.Services.AddOpenApi();
 builder.Services.AddMemoryCache();
-// ExcelDataReader đọc streaming (SAX-style qua Read()/GetValue() từng ô) thay vì dựng object model đầy đủ
-// như ClosedXML — đo thực tế: file 30MB (77k dòng) chỉ tốn ~115MB RAM peak (so với OutOfMemoryException
-// của ClosedXML trên Render free 512MB với cùng file). Giữ giới hạn 100MB — an toàn dư dả (~3-4x margin)
-// cho container 512MB, có thể nâng dần sau khi quan sát thực tế trên Render.
-const long MaxUploadBytes = 100L * 1024 * 1024;
+// Đo thực tế trên Render free tier (512MB RAM, KHÔNG chỉ đo local vì overhead cố định của container
+// (OS + .NET runtime + ASP.NET Core hosting) chiếm phần lớn RAM khả dụng): 13.2MB (45k dòng) OK,
+// 17.5MB (60k dòng) → OutOfMemoryException. Đặt 15MB — nằm giữa vùng đã xác nhận an toàn/lỗi, có margin.
+const long MaxUploadBytes = 15L * 1024 * 1024;
 builder.Services.Configure<FormOptions>(opts =>
 {
     opts.MultipartBodyLengthLimit = MaxUploadBytes;
