@@ -21,13 +21,39 @@
     return td.classList.contains('rownum') || td.classList.contains('rowh');
   }
 
+  // fix: fallback execCommand('copy') qua textarea ẩn — navigator.clipboard.writeText() có thể bị chặn
+  // silently (promise reject không rõ lý do) khi trang chạy trong iframe thiếu allow="clipboard-write",
+  // hoặc context không secure. Không có fallback thì nút vẫn hiện nhưng bấm hoàn toàn im lặng không copy
+  // được, trông như tool bị lỗi mà không có cách nào biết tại sao.
+  function legacyCopy(text){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    let ok = false;
+    try{ ok = document.execCommand('copy'); }catch(e){ ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function flashBtn(btn){
+    if (!btn) return;
+    const old = btn.textContent;
+    btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = old; }, 900);
+  }
+
   function copyToClipboard(text, btn){
-    navigator.clipboard.writeText(text).then(() => {
-      if (!btn) return;
-      const old = btn.textContent;
-      btn.textContent = '✓';
-      setTimeout(() => { btn.textContent = old; }, 900);
-    }).catch(()=>{});
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(() => flashBtn(btn)).catch(() => {
+        if (legacyCopy(text)) flashBtn(btn);
+      });
+    } else if (legacyCopy(text)){
+      flashBtn(btn);
+    }
   }
 
   function makeCopyBtn(title){
